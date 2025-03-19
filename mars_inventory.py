@@ -23,9 +23,9 @@ def read_csv(csv_file):
                 
                 inventory.append(item)
     except FileNotFoundError:
-        print(f'Error: {csv_file} file not found.')
+        print(f'Error: {csv_file} 파일을 찾을 수 없습니다.')
     except Exception as e:
-        print(f"Error reading file: {e}")
+        print(f"파일을 읽을 수 없습니다.: {e}")
     return inventory
 
 # 인화성 순으로 정렬 (내림차순)
@@ -65,9 +65,9 @@ def read_binary(file_name):
             print(f'\n{file_name} 내용:')
             print(content)
     except FileNotFoundError:
-        print(f'Error: {file_name} file not found.')
+        print(f'Error: {file_name} 파일을 찾을 수 없습니다.')
     except Exception as e:
-        print(f"Error reading binary file: {e}")
+        print(f"바이너리 파일을 읽을 수 없습니다.: {e}")
 
 def main():
     csv_file = 'Mars_Base_Inventory_List.csv'         
