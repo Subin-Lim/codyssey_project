@@ -5,7 +5,7 @@ def read_csv(csv_file):
         with open(csv_file, 'r', encoding='utf-8') as file:
             lines = file.readlines()
             if not lines:
-                print("Error: File is empty.")
+                print("오류: 파일이 비어있습니다.")
                 return inventory
 
             headers = lines[0].strip().split(',')
@@ -23,14 +23,22 @@ def read_csv(csv_file):
                 
                 inventory.append(item)
     except FileNotFoundError:
-        print(f'Error: {csv_file} 파일을 찾을 수 없습니다.')
+        print(f'오류: {csv_file} 파일을 찾을 수 없습니다.')
     except Exception as e:
-        print(f"파일을 읽을 수 없습니다.: {e}")
+        print(f"파일을 읽는 중 오류 발생: {e}")
     return inventory
 
 # 인화성 순으로 정렬 (내림차순)
 def sort_by_flammability(inventory):
-    return sorted(inventory, key=lambda x: x['Flammability'], reverse=True)
+    # Flammability 값이 실수로 변환 가능할 경우 정렬
+    def get_flammability_value(item):
+        try:
+            return float(item['Flammability'])  # Flammability 값이 실수일 경우 처리
+        except ValueError:
+            return -1  # 실수로 변환할 수 없을 경우 -1을 반환하여 정렬에서 제외되도록 처리
+
+    # 정렬
+    return sorted(inventory, key=lambda x: get_flammability_value(x), reverse=True)
 
 # 인화성 지수 0.7 이상 필터링
 def filter_dangerous_items(inventory):
@@ -44,7 +52,7 @@ def save_csv(file_name, inventory):
             for item in inventory:
                 file.write(",".join(map(str, item.values())) + "\n")
     except Exception as e:
-        print(f"Error writing file: {e}")
+        print(f"파일을 저장하는 중 오류 발생: {e}")
 
 # 이진 파일 저장
 def save_binary(file_name, inventory):
@@ -54,7 +62,7 @@ def save_binary(file_name, inventory):
                 line = ",".join(map(str, item.values())) + "\n"
                 file.write(line.encode('utf-8'))
     except Exception as e:
-        print(f"Error writing binary file: {e}")
+        print(f"이진 파일을 저장하는 중 오류 발생: {e}")
 
 # 이진 파일 읽기
 def read_binary(file_name):
@@ -65,9 +73,9 @@ def read_binary(file_name):
             print(f'\n{file_name} 내용:')
             print(content)
     except FileNotFoundError:
-        print(f'Error: {file_name} 파일을 찾을 수 없습니다.')
+        print(f'오류: {file_name} 파일을 찾을 수 없습니다.')
     except Exception as e:
-        print(f"바이너리 파일을 읽을 수 없습니다.: {e}")
+        print(f"이진 파일을 읽는 중 오류 발생: {e}")
 
 def main():
     csv_file = 'Mars_Base_Inventory_List.csv'         
