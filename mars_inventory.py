@@ -5,21 +5,21 @@ def read_csv(csv_file):
         with open(csv_file, 'r', encoding='utf-8') as file:
             lines = file.readlines()
             if not lines:
-                print("오류: 파일이 비어있습니다.")
+                print('오류: 파일이 비어있습니다.')
                 return inventory
 
             headers = lines[0].strip().split(',')
             for line in lines[1:]:
                 values = line.strip().split(',')
-                if len(values) != len(headers):  # 데이터가 누락된 경우 건너뜀
+                if len(values) != len(headers):  
                     continue
                 
                 item = {}
                 for i in range(len(headers)):
                     try:
-                        item[headers[i]] = float(values[i]) if i > 0 else values[i]  # 첫 번째 값(물질명)은 문자열
+                        item[headers[i]] = float(values[i]) if i > 0 else values[i]  
                     except ValueError:
-                        item[headers[i]] = values[i]  # 숫자로 변환 실패 시 문자열 그대로 저장
+                        item[headers[i]] = values[i]  
                 
                 inventory.append(item)
     except FileNotFoundError:
@@ -30,14 +30,12 @@ def read_csv(csv_file):
 
 # 인화성 순으로 정렬 (내림차순)
 def sort_by_flammability(inventory):
-    # Flammability 값이 실수로 변환 가능할 경우 정렬
     def get_flammability_value(item):
         try:
-            return float(item['Flammability'])  # Flammability 값이 실수일 경우 처리
+            return float(item['Flammability'])  
         except ValueError:
-            return -1  # 실수로 변환할 수 없을 경우 -1을 반환하여 정렬에서 제외되도록 처리
-
-    # 정렬
+            return -1 
+            
     return sorted(inventory, key=lambda x: get_flammability_value(x), reverse=True)
 
 # 인화성 지수 0.7 이상 필터링
@@ -52,7 +50,7 @@ def save_csv(file_name, inventory):
             for item in inventory:
                 file.write(",".join(map(str, item.values())) + "\n")
     except Exception as e:
-        print(f"파일을 저장하는 중 오류 발생: {e}")
+        print(f'파일을 저장하는 중 오류 발생: {e}')
 
 # 이진 파일 저장
 def save_binary(file_name, inventory):
@@ -62,7 +60,7 @@ def save_binary(file_name, inventory):
                 line = ",".join(map(str, item.values())) + "\n"
                 file.write(line.encode('utf-8'))
     except Exception as e:
-        print(f"이진 파일을 저장하는 중 오류 발생: {e}")
+        print(f'이진 파일을 저장하는 중 오류 발생: {e}')
 
 # 이진 파일 읽기
 def read_binary(file_name):
@@ -75,7 +73,7 @@ def read_binary(file_name):
     except FileNotFoundError:
         print(f'오류: {file_name} 파일을 찾을 수 없습니다.')
     except Exception as e:
-        print(f"이진 파일을 읽는 중 오류 발생: {e}")
+        print(f'이진 파일을 읽는 중 오류 발생: {e}')
 
 def main():
     csv_file = 'Mars_Base_Inventory_List.csv'         
