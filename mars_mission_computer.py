@@ -32,7 +32,7 @@ class DummySensor:
             f'--------------------------------------------------\n'
         )
 
-        with open('sensor_log.txt', 'a', encoding='utf-8') as file:
+        with open('sensor_log.log', 'a', encoding='utf-8') as file:
             file.write(log_data)
 
         return self.env_values
