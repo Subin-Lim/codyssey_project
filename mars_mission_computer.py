@@ -3,12 +3,12 @@ import random
 class DummySensor:
     def __init__(self):
         self.env_values = {
-            'mars_base_internal_temperature': 20.0,
-            'mars_base_external_temperature': 10.0,
-            'mars_base_internal_humidity': 55.0,
-            'mars_base_external_illuminance': 600.0,
-            'mars_base_internal_co2': 0.05,
-            'mars_base_internal_oxygen': 5.0
+            'mars_base_internal_temperature': 00.0,
+            'mars_base_external_temperature': 00.0,
+            'mars_base_internal_humidity': 00.0,
+            'mars_base_external_illuminance': 00.0,
+            'mars_base_internal_co2': 0.00,
+            'mars_base_internal_oxygen': 0.0
         }
     
     def set_env(self):
@@ -16,7 +16,7 @@ class DummySensor:
         self.env_values['mars_base_external_temperature'] = round(random.uniform(0.0, 21.0), 2)
         self.env_values['mars_base_internal_humidity'] = round(random.uniform(50.0, 60.0), 2)
         self.env_values['mars_base_external_illuminance'] = round(random.uniform(500.0, 715.0), 2)
-        self.env_values['mars_base_internal_co2'] = round(random.uniform(0.02, 0.1), 4)
+        self.env_values['mars_base_internal_co2'] = round(random.uniform(0.02, 0.1), 2)
         self.env_values['mars_base_internal_oxygen'] = round(random.uniform(4.0, 7.0), 2)
 
     def get_env(self):
