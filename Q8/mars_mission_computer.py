@@ -2,7 +2,7 @@
 # import threading
 import platform
 import os
-import shutil
+import psutil 
 
 """
 class DummySensor:
@@ -96,7 +96,7 @@ class MissionComputer:
                 '운영체계 버전': platform.version(),
                 'CPU 타입': platform.processor(),
                 'CPU 코어 수': os.cpu_count(),
-                '메모리 크기 (Bytes)': shutil.disk_usage("/").total
+                '메모리 크기 (Bytes)': psutil.virtual_memory().total
             }
             print('{')
             for key, value in info.items():
@@ -109,8 +109,8 @@ class MissionComputer:
     def get_mission_computer_load(self):
         try:
             load = {
-                'CPU 실시간 사용량': os.getloadavg()[0] if hasattr(os, 'getloadavg') else 'N/A',
-                '메모리 실시간 사용량': shutil.disk_usage("/").used
+                'CPU 실시간 사용량 (%)': psutil.cpu_percent(interval=1),
+                '메모리 실시간 사용량 (Bytes)': psutil.virtual_memory().used
             }
             print('{')
             for key, value in load.items():
