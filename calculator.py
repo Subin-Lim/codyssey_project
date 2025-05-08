@@ -3,7 +3,6 @@ import re
 from PyQt5.QtWidgets import QApplication, QWidget, QGridLayout, QPushButton, QVBoxLayout, QLabel 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFontMetrics, QFont
-import traceback 
 
 
 class Calculator(QWidget):
